@@ -9,33 +9,51 @@
 <body>
     <div class="container">
         <h1>Urenregistratie</h1>
-        
-        <label for="date">Datum:</label>
-        <input type="date" id="date">
 
-        <label for="startTime">Starttijd:</label>
-        <input type="time" id="startTime">
+        <!-- Datum invoer -->
+        <label for="workDate">Datum:</label>
+        <input type="date" id="workDate">
 
-        <label for="endTime">Eindtijd:</label>
-        <input type="time" id="endTime">
+        <!-- Starttijd invoer -->
+        <label for="startHour">Starttijd:</label>
+        <div class="time-group">
+            <select id="startHour"></select>
+            <select id="startMinutes">
+                <option value="00">00</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+            </select>
+        </div>
 
-        <button id="addEntryBtn">Voeg toe</button>
+        <!-- Eindtijd invoer -->
+        <label for="endHour">Eindtijd:</label>
+        <div class="time-group">
+            <select id="endHour"></select>
+            <select id="endMinutes">
+                <option value="00">00</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+            </select>
+        </div>
+
+        <button id="addEntry">Voeg toe</button>
 
         <h2>Gewerkte uren</h2>
         <ul id="hoursList"></ul>
+        <p><strong>Totaal gewerkte uren:</strong> <span id="totalHours">0</span></p>
 
-        <h3>Totaal gewerkte uren: <span id="totalHours">0</span></h3>
-
+        <!-- Uurloon invoer -->
         <label for="hourlyRate">Uurloon (€):</label>
-        <input type="number" id="hourlyRate" min="0" step="0.01">
+        <input type="number" id="hourlyRate" step="0.01" value="15">
 
-        <button id="calculateBtn">Bereken inkomen</button>
-        <h3>Totaal verdiend: €<span id="totalEarnings">0</span></h3>
+        <button id="calculateEarnings">Bereken inkomen</button>
+        <p><strong>Totaal verdiend:</strong> €<span id="totalEarnings">0</span></p>
 
-        <button id="clearBtn">Reset gegevens</button>
+        <button id="resetData">Reset gegevens</button>
     </div>
 
-    <!-- Zorg dat JavaScript op het einde staat, zodat de DOM eerst geladen wordt -->
     <script src="script.js"></script>
 </body>
 </html>

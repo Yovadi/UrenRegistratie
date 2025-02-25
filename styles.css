@@ -1,45 +1,85 @@
+/* Algemene stijl voor donker thema */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    text-align: center;
-    margin: 0;
+    margin: 20px;
     padding: 20px;
+    background-color: #121212;
+    color: #e0e0e0;
 }
 
+/* Container */
 .container {
-    background: white;
+    background: #1e1e1e;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     max-width: 400px;
     margin: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
-input, button {
-    width: 90%;
+/* Koppen */
+h1, h2 {
+    text-align: center;
+    color: #ffffff;
+}
+
+/* Labels */
+label {
+    display: block;
+    font-weight: bold;
+    color: #bbbbbb;
+    margin-top: 10px;
+}
+
+/* Tijdinvoer naast elkaar */
+.time-group {
+    display: flex;
+    gap: 10px;
+}
+
+/* Stijl voor select dropdowns en invoervelden */
+select, input {
+    flex: 1;
     padding: 10px;
-    margin: 10px 0;
+    background: #2a2a2a;
+    color: #ffffff;
+    border: 1px solid #444;
+    border-radius: 5px;
 }
 
+/* Datum invoerveld */
+input[type="date"] {
+    width: 100%;
+}
+
+/* Knoppen */
 button {
-    background-color: #28a745;
-    color: white;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ff9900;
+    color: #121212;
     border: none;
+    font-weight: bold;
+    border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #ff9900;
 }
 
+/* Lijst */
 ul {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
 }
 
-li {
-    background: #eee;
+ul li {
+    background: #333;
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
+    color: #ffffff;
 }

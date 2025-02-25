@@ -1,89 +1,77 @@
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("JavaScript is geladen en klaar!");
-    
-    // Controleer of de knoppen bestaan en koppel event listeners
-    document.getElementById("addEntryBtn").addEventListener("click", addEntry);
-    document.getElementById("calculateBtn").addEventListener("click", calculateEarnings);
-    document.getElementById("clearBtn").addEventListener("click", clearData);
+    console.log("JavaScript geladen!");
 
-    // Laad opgeslagen gegevens
-    loadStoredData();
-});
+    const workDate = document.getElementById("workDate");
+    const startHour = document.getElementById("startHour");
+    const endHour = document.getElementById("endHour");
+    const startMinutes = document.getElementById("startMinutes");
+    const endMinutes = document.getElementById("endMinutes");
+    const addEntryBtn = document.getElementById("addEntry");
+    const hoursList = document.getElementById("hoursList");
+    const totalHoursDisplay = document.getElementById("totalHours");
+    const hourlyRate = document.getElementById("hourlyRate");
+    const calculateEarningsBtn = document.getElementById("calculateEarnings");
+    const totalEarningsDisplay = document.getElementById("totalEarnings");
+    const resetBtn = document.getElementById("resetData");
 
-function addEntry() {
-    console.log("Voeg toe knop werkt!");
-
-    let date = document.getElementById("date").value;
-    let startTime = document.getElementById("startTime").value;
-    let endTime = document.getElementById("endTime").value;
-
-    if (!date || !startTime || !endTime) {
-        alert("Voer een geldige datum, starttijd en eindtijd in.");
-        return;
-    }
-
-    let start = new Date(`1970-01-01T${startTime}:00`);
-    let end = new Date(`1970-01-01T${endTime}:00`);
-
-    if (end <= start) {
-        alert("De eindtijd moet later zijn dan de starttijd.");
-        return;
-    }
-
-    let hoursWorked = (end - start) / (1000 * 60 * 60); // Omrekenen naar uren
-    console.log(`Gewerkte uren: ${hoursWorked}`);
-
-    let entries = JSON.parse(localStorage.getItem("workHours")) || [];
-    entries.push({ date, startTime, endTime, hoursWorked });
-    localStorage.setItem("workHours", JSON.stringify(entries));
-
-    updateList();
-}
-
-function updateList() {
-    let entries = JSON.parse(localStorage.getItem("workHours")) || [];
-    let hoursList = document.getElementById("hoursList");
     let totalHours = 0;
+    let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
-    hoursList.innerHTML = "";
+    // Vul de dropdowns voor uren (00 - 23)
+    for (let i = 0; i < 24; i++) {
+        const option1 = new Option(i.toString().padStart(2, "0"), i);
+        const option2 = new Option(i.toString().padStart(2, "0"), i);
+        startHour.add(option1);
+        endHour.add(option2);
+    }
 
-    entries.forEach(entry => {
-        if (typeof entry.hoursWorked === "undefined") {
-            console.warn("Fout: hoursWorked is niet gedefinieerd voor deze entry", entry);
-            return; // Sla foute records over
+    function updateList() {
+        hoursList.innerHTML = "";
+        entries.forEach((entry, index) => {
+            const li = document.createElement("li");
+            li.textContent = `${entry.date} | ${entry.startHour}:${entry.startMinutes} - ${entry.endHour}:${entry.endMinutes} (${entry.workedHours.toFixed(2)} uur)`;
+            hoursList.appendChild(li);
+        });
+
+        totalHoursDisplay.textContent = totalHours.toFixed(2);
+        localStorage.setItem("entries", JSON.stringify(entries));
+    }
+
+    function calculateHours(startH, startM, endH, endM) {
+        let startTime = startH * 60 + startM;
+        let endTime = endH * 60 + endM;
+        if (endTime < startTime) endTime += 1440;
+        return (endTime - startTime) / 60;
+    }
+
+    addEntryBtn.addEventListener("click", function() {
+        let date = workDate.value;
+        let startH = parseInt(startHour.value);
+        let startM = parseInt(startMinutes.value);
+        let endH = parseInt(endHour.value);
+        let endM = parseInt(endMinutes.value);
+
+        if (!date) {
+            alert("Selecteer een datum!");
+            return;
         }
 
-        totalHours += entry.hoursWorked;
-        let li = document.createElement("li");
-        li.textContent = `${entry.date}: ${entry.startTime} - ${entry.endTime} (${entry.hoursWorked.toFixed(2)} uur)`;
-        hoursList.appendChild(li);
+        let workedHours = calculateHours(startH, startM, endH, endM);
+        totalHours += workedHours;
+        entries.push({ date, startHour: startH, startMinutes: startM, endHour: endH, endMinutes: endM, workedHours });
+
+        updateList();
     });
 
-    document.getElementById("totalHours").textContent = totalHours.toFixed(2);
-}
+    calculateEarningsBtn.addEventListener("click", function() {
+        totalEarningsDisplay.textContent = (totalHours * parseFloat(hourlyRate.value)).toFixed(2);
+    });
 
-function calculateEarnings() {
-    let hourlyRate = parseFloat(document.getElementById("hourlyRate").value);
-    let totalHours = parseFloat(document.getElementById("totalHours").textContent);
+    resetBtn.addEventListener("click", function() {
+        totalHours = 0;
+        entries = [];
+        updateList();
+    });
 
-    if (isNaN(hourlyRate) || hourlyRate <= 0) {
-        alert("Voer een geldig uurloon in.");
-        return;
-    }
-
-    let totalEarnings = totalHours * hourlyRate;
-    document.getElementById("totalEarnings").textContent = totalEarnings.toFixed(2);
-}
-
-function clearData() {
-    if (confirm("Weet je zeker dat je alle gegevens wilt wissen?")) {
-        localStorage.removeItem("workHours");
-        document.getElementById("hoursList").innerHTML = "";
-        document.getElementById("totalHours").textContent = "0";
-        document.getElementById("totalEarnings").textContent = "0";
-    }
-}
-
-function loadStoredData() {
     updateList();
-}
+});
