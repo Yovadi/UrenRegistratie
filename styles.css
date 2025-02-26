@@ -15,7 +15,7 @@ body {
 /* Container styling */
 .container {
     background: #1e1e1e;
-    padding: 20px;
+    padding: 25px;
     max-width: 95%;
     margin: auto;
     border-radius: 12px;
@@ -26,7 +26,8 @@ body {
 h1, h2 {
     text-align: center;
     color: #ffffff;
-    font-size: 22px;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
 /* Labels */
@@ -34,26 +35,20 @@ label {
     display: block;
     font-weight: bold;
     color: #bbbbbb;
-    margin-top: 10px;
-    font-size: 14px;
+    margin-top: 15px;
+    font-size: 16px;
 }
 
-/* Responsive tijdvelden (flexbox voor naast elkaar) */
-.time-group {
-    display: flex;
-    gap: 5px;
-    width: 100%;
-}
-
-/* Stijl voor select dropdowns en invoervelden */
-select, input {
+/* Extra ruimte tussen invoervelden */
+input, select {
     flex: 1;
-    padding: 12px;
+    padding: 14px;
     background: #2a2a2a;
     color: #ffffff;
     border: 1px solid #444;
     border-radius: 8px;
     font-size: 16px;
+    margin-top: 8px; /* Extra ruimte boven invoervelden */
 }
 
 /* Datum invoerveld */
@@ -61,11 +56,18 @@ input[type="date"] {
     width: 100%;
 }
 
-/* Grote knoppen voor mobiel */
+/* Tijden in een rij naast elkaar */
+.time-group {
+    display: flex;
+    gap: 10px; /* Extra ruimte tussen uren en minuten */
+    width: 100%;
+}
+
+/* Knoppen groot en goed zichtbaar */
 button {
     width: 100%;
-    padding: 14px;
-    margin-top: 12px;
+    padding: 16px;
+    margin-top: 15px;
     background-color: #03dac6;
     color: #121212;
     border: none;
@@ -88,27 +90,37 @@ ul {
 
 ul li {
     background: #333;
-    margin: 5px 0;
-    padding: 12px;
+    margin: 8px 0;
+    padding: 14px;
     border-radius: 6px;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 18px;
+    line-height: 1.6; /* Meer ruimte tussen regels */
+}
+
+/* Geaccentueerde tekst voor totale uren en inkomen */
+#totalHours, #totalEarnings {
+    font-size: 22px;
+    font-weight: bold;
+    color: #03dac6;
+    display: block;
+    margin-top: 10px;
 }
 
 /* Voor iPhone 13 Pro (390px breed) */
 @media screen and (max-width: 400px) {
     .container {
         max-width: 100%;
-        padding: 15px;
+        padding: 20px;
     }
 
     button {
         font-size: 16px;
-        padding: 12px;
+        padding: 14px;
     }
 
     select, input {
         font-size: 14px;
-        padding: 10px;
+        padding: 12px;
     }
 }
