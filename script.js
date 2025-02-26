@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let totalHours = 0;
     let entries = JSON.parse(localStorage.getItem("entries")) || [];
 
-    // Vul de dropdowns voor uren (00 - 23)
+    // Vul dropdowns (00-23 voor uren)
     for (let i = 0; i < 24; i++) {
         const option1 = new Option(i.toString().padStart(2, "0"), i);
         const option2 = new Option(i.toString().padStart(2, "0"), i);
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function updateList() {
         hoursList.innerHTML = "";
-        entries.forEach((entry, index) => {
+        entries.forEach((entry) => {
             const li = document.createElement("li");
             li.textContent = `${entry.date} | ${entry.startHour}:${entry.startMinutes} - ${entry.endHour}:${entry.endMinutes} (${entry.workedHours.toFixed(2)} uur)`;
             hoursList.appendChild(li);

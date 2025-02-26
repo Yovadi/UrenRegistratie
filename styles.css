@@ -1,26 +1,32 @@
-/* Algemene stijl voor donker thema */
-body {
+/* Algemene instellingen voor mobiel */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-    background-color: #121212;
-    color: #e0e0e0;
 }
 
-/* Container */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    padding: 10px;
+}
+
+/* Container styling */
 .container {
     background: #1e1e1e;
     padding: 20px;
-    max-width: 400px;
+    max-width: 95%;
     margin: auto;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
 }
 
 /* Koppen */
 h1, h2 {
     text-align: center;
     color: #ffffff;
+    font-size: 22px;
 }
 
 /* Labels */
@@ -29,22 +35,25 @@ label {
     font-weight: bold;
     color: #bbbbbb;
     margin-top: 10px;
+    font-size: 14px;
 }
 
-/* Tijdinvoer naast elkaar */
+/* Responsive tijdvelden (flexbox voor naast elkaar) */
 .time-group {
     display: flex;
-    gap: 10px;
+    gap: 5px;
+    width: 100%;
 }
 
 /* Stijl voor select dropdowns en invoervelden */
 select, input {
     flex: 1;
-    padding: 10px;
+    padding: 12px;
     background: #2a2a2a;
     color: #ffffff;
     border: 1px solid #444;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
 /* Datum invoerveld */
@@ -52,25 +61,26 @@ input[type="date"] {
     width: 100%;
 }
 
-/* Knoppen */
+/* Grote knoppen voor mobiel */
 button {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #ff9900;
+    padding: 14px;
+    margin-top: 12px;
+    background-color: #03dac6;
     color: #121212;
     border: none;
     font-weight: bold;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    font-size: 18px;
 }
 
 button:hover {
-    background-color: #ff9900;
+    background-color: #00c4b4;
 }
 
-/* Lijst */
+/* Lijst voor uren */
 ul {
     list-style: none;
     padding: 0;
@@ -79,7 +89,26 @@ ul {
 ul li {
     background: #333;
     margin: 5px 0;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 6px;
     color: #ffffff;
+    font-size: 16px;
+}
+
+/* Voor iPhone 13 Pro (390px breed) */
+@media screen and (max-width: 400px) {
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    select, input {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
